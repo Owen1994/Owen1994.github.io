@@ -1,0 +1,50 @@
+﻿/* 初始化1：去掉默认的边距 */
+body,div,span,ul,ol,li,p,h1,h2,h3,h4,h5,h6,dl,dt,dd,form,input,img,a,select,textarea,button,header,aside,article,footer {
+	padding:0;
+	margin:0;
+	box-sizing: border-box;
+}
+/* 初始化2：清除列表前的默认的点或序号 */
+ul,ol {
+	list-style: none;
+}
+/* 初始化3：清除默认的边框 */
+input {
+	border:none;
+	outline:none;
+}
+/* 初始化4：给页面设立一个统一的字体大小、类型、行高，以及body的背景色 */
+body {
+	font:normal normal 12px/12px "Microsoft","宋体"，tahoma, arial, "Hiragino Sans GB", "\\5b8b体", sans-serif;
+	background-color: #fff;
+}
+/* 初始化5： 设置a标签的字体颜色以及去掉下划线 */
+a {
+	color:#000;
+	text-decoration: none;
+}
+/* 初始化6:清除浮动的样式代码 */
+.clearfix:after {
+	content:"";
+	display: block;
+	clear:both;
+	height: 0;
+	line-height: 0;
+	visibility:hidden;
+}
+.clearfloat {
+	zoom:1;   /*兼容ie低版本浏览器  */
+}
+/* 初始化7：设置浮动 */
+.fl {
+	float:left;
+}
+.fr {
+	float:right;
+}
+
+.menu ul li a.navactive {
+	color:#000;
+	background-color: #fff;
+}
+

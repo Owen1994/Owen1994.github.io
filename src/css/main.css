@@ -1,0 +1,121 @@
+.in_theaters .ul1 {
+    width:950px;
+    margin:0 auto;
+}
+.in_theaters .ul1 li {
+    float:left;
+    padding:20px;
+    line-height: 25px;
+}
+.in_theaters .ul1 li a {
+    display:block;
+}
+.in_theaters .ul1 li a img {
+    display:block;
+    width:150px;
+    height:200px;
+}
+.in_theaters .ul1 li p {
+    padding: 20px 0 0 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    height:50px;
+}
+.in_theaters .pageIndicator li {
+    float:left;
+    width:50px;
+    height:50px;
+    border:1px solid #91DBD1;
+    text-align:center;
+    line-height:50px;
+}
+.in_theaters .pageIndicator {
+    position:absolute;
+    left:50%;
+    top:0;
+    -webkit-transform:translate(-50%,0);
+    -moz-transform:translate(-50%,0);
+    transform:translate(-50%,0);
+    cursor:pointer;
+}
+.indicator_container {
+    width:100%;
+    height:100px;
+    position:relative;
+}
+.in_theaters .pageIndicator li.num+li.num {
+    margin-left:5px;
+}
+.in_theaters .pageIndicator li:nth-of-type(1) {
+    border-radius: 50%;
+    font-size:14px;
+    background-color:#91DBD1;
+    margin-right:20px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.in_theaters .pageIndicator li:last-of-type {
+    border-radius: 50%;
+    font-size:14px;
+    margin-left:20px;
+    background-color:#91DBD1;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.indicatorActive {
+    background-color:#91DBD1;
+}
+@media screen and (min-width:320px) {
+    .in_theaters .ul1 li a img {
+        width: 100px;
+        height: 150px;
+    }
+    .in_theaters .ul1 {
+        width:280px;
+    }
+    .in_theaters .ul1 p {
+        width:100px;
+    }
+    .in_theaters .pageIndicator li {
+        width:25px;
+        height:25px;
+        line-height:25px;
+    }
+}
+@media screen and (min-width:400px) {
+    .in_theaters .ul1 {
+        width:390px;
+    }
+    .in_theaters .ul1 li a img {
+        width: 150px;
+        height: 200px;
+    }
+    .in_theaters .ul1 li p {
+        width:150px;
+    }
+}
+@media screen and (min-width:590px) {
+    .in_theaters .ul1 {
+        width:580px;
+    }
+}
+@media screen and (min-width:780px) {
+    .in_theaters .ul1 {
+        width:770px;
+    }
+}
+@media screen and (min-width:960px) {
+    .in_theaters .ul1 {
+        width:950px;
+    }
+    .in_theaters .pageIndicator li {
+        width:50px;
+        height:50px;
+        line-height:50px;
+    }
+}
