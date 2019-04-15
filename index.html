@@ -1,1 +1,163 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>owen</title><link href=./static/css/app.45571d9fe7c7401078cf3677194d84cb.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.45d5106f532d073aaf92.js></script><script type=text/javascript src=./static/js/vendor.4a9c8591cc3baf6e194b.js></script><script type=text/javascript src=./static/js/app.9b6cf959a47aab7cc0f9.js></script></body></html>
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Title</title>
+    <style>
+        canvas {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width='800' height='600'></canvas>
+    <script src="./js/bird.js"></script>
+    <script src="./js/sky.js"></script>
+    <script src="./js/land.js"></script>
+    <script src="./js/pipe.js"></script>
+    <script>
+        var c = document.querySelector('canvas');
+        var ctx = c.getContext('2d');
+
+        var startTime = new Date();
+
+        //游戏开始时计时
+        var start = new Date();
+
+        //点击开始
+        var flag = false;
+
+
+
+        //优化加载图片的流程,同时加载多张图片
+        function loadImg(imgArr, callback) {
+            var count = 0;
+            var imgList = [];
+            for (var i = 0; i < imgArr.length; i++) {
+                var img = new Image();
+                img.src = './images/' + imgArr[i] + '.png';
+                imgList[imgArr[i]] = img;
+                img.onload = function () {
+                    count++;
+                    if (count == imgArr.length) {
+                        callback(imgList);
+                    }
+                }
+            }
+        }
+
+        loadImg(['birds', 'sky', 'land', 'pipe1', 'pipe2'], function (imgList) {
+
+
+            //创建小鸟
+            var birdImg = imgList['birds'];
+            var bird = new Bird({ ctx: ctx, birdImg: birdImg, canvasX: 100, canvasY: 100 });
+
+            //创建天空
+            var skyImg = imgList['sky'];
+            var sky1 = new Sky({ ctx: ctx, skyImg: skyImg, skyDis: 0 });
+            var sky2 = new Sky({ ctx: ctx, skyImg: skyImg, skyDis: skyImg.width });
+
+            //创建陆地
+            var landImg = imgList['land'];
+            var landArr = [];
+            for (var i = 0; i < 4; i++) {
+                var land = new Land({ ctx: ctx, landImage: landImg, landDis: landImg.width * i });
+                landArr.push(land);
+            }
+
+            //创建管道
+            var pipeImg1 = imgList['pipe2'];
+            var pipeImg2 = imgList['pipe1'];
+            var pipeArr = [];
+            for (var i = 0; i < 6; i++) {
+                pipe = new Pipe({ ctx: ctx, pipeDis: 3 * pipeImg1.width * i + 300, pipeImg1: pipeImg1, pipeImg2: pipeImg2 });
+                pipeArr.push(pipe);
+            }
+
+
+            function fly() {
+                //每执行一次所耗时间
+                var endTime = new Date();
+                offsetTime = endTime - startTime;
+                startTime = endTime;
+
+                //清除画板
+                ctx.clearRect(0, 0, c.width, c.height);
+
+                //重新绘制路径
+                this.ctx.beginPath();
+
+                //绘制天空
+                sky1.drawSky();
+                sky2.drawSky();
+
+                //绘制小鸟
+                bird.drawBird(offsetTime);
+
+                //绘制管道
+                for (var i = 0; i < pipeArr.length; i++) {
+                    pipeArr[i].drawPipe();
+                }
+
+                //绘制陆地
+                for (var i = 0; i < landArr.length; i++) {
+                    landArr[i].drawLand();
+                }
+
+
+                //计时器
+                var nowTime = new Date();
+                var disTime = (nowTime - start) / 1000;
+                var hour = parseInt(disTime / 3600);
+                var minute = parseInt(disTime % 3600 / 60);
+                var second = parseInt(disTime % 60);
+                var str = '你坚持了' + hour + '小时' + minute + '分' + second + '秒';
+                ctx.font = '20px 微软雅黑';
+                ctx.textBaseline = 'top';
+                ctx.fillText(str, 200, 0);
+
+
+                //点击开始
+                if (!flag) {
+                    var str = '哇,大神试玩,好紧张!点击开始吧!';
+                    ctx.fillStyle = 'green';
+                    ctx.fillText(str, 100, 200);
+                }
+
+
+                //判断小鸟是否越界
+                if (bird.canvasY < 0 || bird.canvasY > c.height - landImg.height - birdImg.height) {
+                    return;
+                }
+
+                //判断小鸟是否撞上管道
+                if (ctx.isPointInPath(bird.canvasX + bird.birdW / 2, bird.canvasY + bird.birdH / 2)) {
+                    return;
+                }
+                if (flag) {
+                    window.requestAnimationFrame(fly);
+                }
+            }
+            fly();
+
+            //点击小鸟上跳(点击开始)
+            c.onclick = function () {
+                if (!flag) {
+
+                    flag = true;
+                    start = new Date();
+                    startTime = new Date();
+                    fly();
+                } else {
+                    //点击小鸟上跳
+                    bird.birdSpeed = -0.2;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
