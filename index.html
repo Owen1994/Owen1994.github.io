@@ -122,7 +122,7 @@
 
                 //点击开始
                 if (!flag) {
-                    var str = '姐妹，点击开始吧';
+                    var str = '点击开始吧';
                     ctx.fillStyle = 'green';
                     ctx.fillText(str, 100, 200);
                 }
@@ -135,7 +135,7 @@
 
                 //判断小鸟是否撞上管道
                 if (ctx.isPointInPath(bird.canvasX + bird.birdW / 2, bird.canvasY + bird.birdH / 2)) {
-                    alert('透你*，就死了', 200, 0);
+                    alert('再来一次！', 200, 0);
                     return;
                 }
                 if (flag) {
